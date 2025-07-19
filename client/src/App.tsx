@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import SignUp from "./auth/signup"
 import Login from "./auth/login"
-import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <div className=" h-screen"></div> // Placeholder for the home page, can
+    element: <Home/> 
   },
   {
     path: "/signup",
@@ -21,7 +21,7 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <>
-    <Navbar/>
+    
     <RouterProvider router={appRouter} />
     </>
   )
