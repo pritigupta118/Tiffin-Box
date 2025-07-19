@@ -2,9 +2,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import SignUp from "./auth/signup"
 import Login from "./auth/login"
 import Home from "./pages/Home"
+import ProfilePage from "./pages/ProfilePage"
+import SearchPage from "./pages/SearchPage"
+import MainLayout from "./layout/MainLayout"
 
 const appRouter = createBrowserRouter([
   {
+    path: "/",
+    element: (
+      <MainLayout/>
+    ),
+    children: [
+{
     path: "/",
     element: <Home/> 
   },
@@ -15,7 +24,18 @@ const appRouter = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage/>
+  },
+    {
+    path: "/search/:id",
+    element: <SearchPage/>
+  },
+    ]
   }
+  
 ])
 
 function App() {

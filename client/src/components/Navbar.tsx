@@ -6,27 +6,30 @@ import { Link } from "react-router-dom"
 
 
 function Navbar() {
-  const user = false
+  const user = true
   return (
-    <div className="h-[58px] md:p-8 flex justify-between items-center md:shadow-sm">
+    <div className="h-[58px] md:p-8 flex justify-between items-center">
       <div className="mt-3">
         <Link to="/">
-    <img src="logo-light mode.png" alt="" className="w-28 h-28"/>
+    <img src="/logo-light mode.png" alt="" className="w-28 h-28"/>
     </Link>
     </div>
-   <ul className="hidden md:flex gap-4 items-center p-4 ">
-    <li>Home</li>
-    <li>Order</li>
-    <li> <ShoppingCart /></li>
-    <li><Moon/></li>
+   <ul className="hidden md:flex gap-6 items-center p-4 ">
+    <li className="flex items-center gap-1 font-semibold hover:text-orange-500
+    "><Home/>Home</li>
+    <li className="flex items-center gap-1 font-semibold hover:text-orange-500"><ShoppingBag/>Order</li>
+    <li className="hover:text-orange-500"> <ShoppingCart /></li>
+    <li className="hover:text-orange-500"><Moon/></li>
     {
       user ? (
         <>
       <li>
+        <Link to="/profile">
         <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" />
   <AvatarFallback>CN</AvatarFallback>
 </Avatar>
+</Link>
       </li>
       <li>
   <Button variant={"destructive"}>Logout</Button>
