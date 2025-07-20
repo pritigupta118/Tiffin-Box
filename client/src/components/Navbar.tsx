@@ -8,13 +8,13 @@ import { Link } from "react-router-dom"
 function Navbar() {
   const user = true
   return (
-    <div className="h-[58px] md:p-8 flex justify-between items-center">
-      <div className="mt-3">
+    <div className="h-[58px] md:p-8 flex justify-between items-center ">
+      <div className="mt-3 cursor-pointer">
         <Link to="/">
     <img src="/logo-light mode.png" alt="" className="w-28 h-28"/>
     </Link>
     </div>
-   <ul className="hidden md:flex gap-6 items-center p-4 ">
+   <ul className="hidden md:flex gap-6 items-center p-4 cursor-pointer">
     <li className="flex items-center gap-1 font-semibold hover:text-orange-500
     "><Home/>Home</li>
     <li className="flex items-center gap-1 font-semibold hover:text-orange-500"><ShoppingBag/>Order</li>
@@ -23,7 +23,7 @@ function Navbar() {
     {
       user ? (
         <>
-      <li>
+      <li className="cursor-pointer">
         <Link to="/profile">
         <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" />
@@ -31,14 +31,14 @@ function Navbar() {
 </Avatar>
 </Link>
       </li>
-      <li>
+      <li className="cursor-pointer">
   <Button variant={"destructive"}>Logout</Button>
       </li>
 </>
       ) : (
 <li>
   <Link to="/login">
-    <Button className="bg-orange-500">Login</Button>
+    <Button className="bg-orange-500 cursor-pointer">Login</Button>
   </Link>
 </li>
       )
