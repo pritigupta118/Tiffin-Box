@@ -5,6 +5,7 @@ import Home from "./pages/Home"
 import ProfilePage from "./pages/ProfilePage"
 import SearchPage from "./pages/SearchPage"
 import MainLayout from "./layout/MainLayout"
+import RestaurantDescription from "./components/RestaurantDescription"
 
 const appRouter = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const appRouter = createBrowserRouter([
     path: "/search/:id",
     element: <SearchPage/>
   },
+  {
+    path: "/restaurant/:id",
+    element: <RestaurantDescription/>
+  }
     ]
   }
   

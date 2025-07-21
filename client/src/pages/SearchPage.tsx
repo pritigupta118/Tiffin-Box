@@ -4,8 +4,33 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 
-
+type ResState = {
+  imgUrl: string;
+  name: string;
+  rating: string;
+  time: string;
+  location: string;
+  cuisines: string[];
+}
 const SearchPage = () => {
+  const restaurants: ResState[] = [
+    {
+      imgUrl: "/res1.jpg",
+      name: "Lovely Hotel & Restaurant",
+      rating: "4.3",
+      time: "30-35 mins",
+      location: "Jaguli",
+      cuisines: ["Biriyani","Thali","Paratha"]
+    },
+    {
+      imgUrl: "/res1.jpg",
+      name: "Lovely Hotel & Restaurant",
+      rating: "4.3",
+      time: "30-35 mins",
+      location: "Jaguli",
+      cuisines: ["Biriyani","Thali","Paratha"]
+    },
+  ]
   return (
     <>
 
@@ -46,12 +71,15 @@ const SearchPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 items-center mt-8">
-          <ResCard />
-          <ResCard />
-          <ResCard />
-          <ResCard />
-          <ResCard />
-          <ResCard />
+          {
+            restaurants.map((res)=>{
+              return (
+  <ResCard key={res.name} imgUrl={res.imgUrl} name={res.name} rating={res.rating} time={res.time} location={res.location} cuisines={res.cuisines}/>
+              )
+            })
+          }
+        
+          
         </div>
       </div>
     </>
