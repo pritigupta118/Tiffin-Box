@@ -6,6 +6,8 @@ import ProfilePage from "./pages/ProfilePage"
 import SearchPage from "./pages/SearchPage"
 import MainLayout from "./layout/MainLayout"
 import RestaurantDescription from "./components/RestaurantDescription"
+import Cart from "./pages/Cart"
+import AdminRestaurant from "./pages/AdminRestaurant"
 
 const appRouter = createBrowserRouter([
   {
@@ -37,7 +39,15 @@ const appRouter = createBrowserRouter([
   {
     path: "/restaurant/:id",
     element: <RestaurantDescription/>
-  }
+  },
+  {
+    path: "/cart",
+    element: <Cart/>
+  },
+  {
+    path: "/admin/restaurant",
+    element: <AdminRestaurant/>
+  },
     ]
   }
   

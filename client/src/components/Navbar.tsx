@@ -18,7 +18,7 @@ function Navbar() {
     <li className="flex items-center gap-1 font-semibold hover:text-orange-500
     "><Home/>Home</li>
     <li className="flex items-center gap-1 font-semibold hover:text-orange-500"><ShoppingBag/>Order</li>
-    <li className="hover:text-orange-500"> <ShoppingCart /></li>
+    <li className="hover:text-orange-500"><Link to="/cart"><ShoppingCart /></Link> </li>
     <li className="hover:text-orange-500"><Moon/></li>
     {
       user ? (
@@ -61,7 +61,7 @@ function Navbar() {
           <Button><ShoppingBag />Orders</Button>
           </div>
           <div className="grid gap-3">
-          <Button><ShoppingCart/>Add to cart</Button>
+          <Button><Link to="/cart"><ShoppingCart/>Add to cart</Link></Button>
           </div>
           <div className="grid gap-3">
           <Button><User/>Profile</Button>

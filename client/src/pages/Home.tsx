@@ -1,5 +1,4 @@
-import Footer from "@/components/Footer"
-import Navbar from "@/components/Navbar"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
@@ -32,7 +31,7 @@ const Home = () => {
       />
       <Button onClick={() => navigate(`/search/${searchText}`)} className="absolute -inset-y-0 right-0 bg-amber-600 hover:bg-amber-500">Search</Button>
       </div>
-     </div>
+     </div> 
      <div >
       <img src="hero section.png" alt="hero-img"/>
      </div>
