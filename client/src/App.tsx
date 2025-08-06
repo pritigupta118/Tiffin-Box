@@ -8,6 +8,7 @@ import MainLayout from "./layout/MainLayout"
 import RestaurantDescription from "./components/RestaurantDescription"
 import Cart from "./pages/Cart"
 import AdminRestaurant from "./pages/AdminRestaurant"
+import AddMenu from "./components/AddMenu"
 
 const appRouter = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/admin/restaurant",
     element: <AdminRestaurant/>
+  },
+  {
+    path: "/admin/menu",
+    element: <AddMenu/>
   },
     ]
   }
