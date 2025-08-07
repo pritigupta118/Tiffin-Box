@@ -1,6 +1,7 @@
-import Navbar from "@/components/Navbar"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Home, Loader2, Mail, Phone, Plus } from "lucide-react"
 import { useRef, useState } from "react"
 
@@ -50,7 +51,7 @@ const ProfilePage = () => {
   return (
     <div>
  
-      <form onSubmit={profileUpdate} className="max-w-7xl px-8 py-10 mx-auto">
+      <form onSubmit={profileUpdate} className="max-w-7xl px-2 md:px-8 py-10 mx-auto">
         <div className="flex items-center gap-4">
           <div className="flex items-center">
             <Avatar className="relative w-[80px] h-[80px]">
@@ -69,7 +70,7 @@ const ProfilePage = () => {
             name="fullname"
             value={profileData.fullname}
             onChange={changeHandler}
-            className="border-none outline-none focus-visible:ring-transparent rounded-sm p-2 font-bold text-2xl" />
+            className="border-none outline-none focus-visible:ring-transparent rounded-sm p-2 font-bold text-lg md:text-2xl" />
 
         </div>
         <div className="grid md:grid-cols-3 gap-4 my-20">
@@ -95,12 +96,32 @@ const ProfilePage = () => {
 
           <div className="relative">
             <Home className="absolute inset-y-2 left-2 text-gray-400" />
-            <input
-              type="text"
-              name="address"
-              value={profileData.address}
-              onChange={changeHandler}
-              placeholder="enter your address" className="border-none outline-none focus-visible:ring-transparent w-full bg-gray-200 p-2 pl-10 rounded-sm" />
+              <Select
+                value={profileData.address}
+                onValueChange={(value) =>
+                  setProfileData((prev) => ({ ...prev, address: value }))
+                }
+              >
+                <SelectTrigger className="border-none outline-none focus-visible:ring-transparent w-full bg-gray-200 p-2 pl-10 rounded-sm">
+                  <SelectValue placeholder="Select Address" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {[
+                      "Girls' Hostel",
+                      "Boys' Hostel",
+                      "Stuff Quarter",
+                      "BioTech Building",
+                      "Administrative Building",
+                      "Registrar Building"
+                    ].map((address: string, index: number) => (
+                      <SelectItem key={index} value={address}>
+                        {address}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
           </div>
 
         </div>

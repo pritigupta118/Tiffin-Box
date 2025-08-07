@@ -1,11 +1,15 @@
 import React, { useState, type FormEvent } from 'react'
-import { Button } from './ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+
+
 import { Loader2, Plus, Star } from 'lucide-react';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
+
 import { menuSchema, type MenuFormSchema } from '@/lib/schema/menuSchema';
-import EditMenu from './EditMenu';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import EditMenu from '@/components/EditMenu';
+
 
 type Props = {}
 
