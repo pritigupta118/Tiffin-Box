@@ -20,7 +20,7 @@ function Navbar() {
    <ul className="hidden md:flex gap-6 items-center p-4 cursor-pointer">
     <li className="flex items-center gap-1 font-semibold hover:text-orange-500
     "><Home/>Home</li>
-   <li className="flex flex-row items-center gap-1 font-semibold hover:text-orange-500"> <Link to="/order/status" className="flex items-center gap-1"><ShoppingBag/>Order</Link></li>
+   <li className="flex flex-row items-center gap-1 font-semibold hover:text-orange-500"> <Link to="/order/status" className="flex items-center gap-1"><HandPlatter/>Order</Link></li>
     <DropdownMenu>
        <DropdownMenuTrigger asChild>
     <Button className="flex flex-row items-center gap-1 font-semibold"><Link to="/order/status" className="flex items-center gap-1"><LayoutDashboard />Dashboard</Link></Button>

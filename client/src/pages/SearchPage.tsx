@@ -34,10 +34,10 @@ const SearchPage = () => {
   return (
     <>
 
-      <div className='max-w-7xl mx-auto p-8'>
+      <div className='max-w-7xl mx-auto p-2 md:p-8'>
         <div className='flex flex-col gap-8'>
-          <div className='flex justify-between items-center'>
-          <h1 className='font-semibold text-lg md:text-2xl text-gray-500'>What's on your mind today ?</h1>
+          <div className='flex justify-between items-center mt-4'>
+          <h1 className='font-semibold text-sm md:text-2xl text-gray-500'>What's on your mind today ?</h1>
           <Button variant={"link"}>Reset</Button>
           </div>
           <SearchCarousel />
