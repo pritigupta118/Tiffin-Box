@@ -259,35 +259,6 @@ const Home = () => {
                 Bringing delicious, homestyle Indian meals to college communities across the nation.
               </p>
             </div>
-            
-            {/* <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Restaurants</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Delivery Areas</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Help Center</a></li>
-              </ul>
-            </div> */}
-            
-            {/* <div>
-              <h4 className="font-semibold mb-4">For Partners</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Restaurant Partners</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Delivery Partners</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Business Solutions</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Partner with Us</a></li>
-              </ul>
-            </div> */}
-            
-            {/* <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>support@tiffinbox.com</li>
-                <li>+91 9876543210</li>
-                <li>Available 24/7</li>
-              </ul>
-            </div> */}
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
