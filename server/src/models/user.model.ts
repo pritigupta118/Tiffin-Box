@@ -1,4 +1,4 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export interface IUser {
   fullName: string;
@@ -11,38 +11,46 @@ export interface IUser {
   timestamps: Date
 }
 const userSchema = new Schema<IUser>({
- fullName: {
-  type: String,
-  required: true
- },
- email: {
-  type: String,
-  required: true
- },
- password: {
-  type: String,
-  required: true
- },
- contact: {
-  type: Number,
-  
- },
- address: {
-  type: String,
-  default: "Update your address"
- },
- profilePicture: {
-  type: String,
- default: ""
- },
-  role:{
-        type:String,
-        enum:['user','partner'],
-        required:true
-    },
-},
-{
-  timestamps: true
-})
+  fullName: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  contact: {
+    type: Number,
 
-export const User = mongoose.model("User", userSchema )
+  },
+  address: {
+    type: String,
+    enum: [
+      "Girls' Hostel",
+      "Boys' Hostel",
+      "Stuff Quarter",
+      "BioTech Building",
+      "Administrative Building",
+      "Registrar Building"
+    ],
+    required: true
+  },
+  profilePicture: {
+    type: String,
+    default: ""
+  },
+  role: {
+    type: String,
+    enum: ['user', 'partner'],
+    required: true
+  },
+},
+  {
+    timestamps: true
+  })
+
+export const User = mongoose.model("User", userSchema)
