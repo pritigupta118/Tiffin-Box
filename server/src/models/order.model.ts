@@ -54,3 +54,5 @@ user: {
         required:true
     }
 },{ timestamps: true})
+
+export const Order = mongoose.model("Order", orderschema)

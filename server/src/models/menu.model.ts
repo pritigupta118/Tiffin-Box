@@ -14,7 +14,7 @@ updatedAt: Date
 
 const menuSchema = new Schema<IMenuDocument>({
   name:{
-    typ0e: String,
+    type: String,
     required: true
   },
   description:{
