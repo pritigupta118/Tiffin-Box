@@ -1,10 +1,6 @@
 import mongoose, {Document, Schema} from "mongoose"
 
-type DeliveryDetails = {
-  email: string;
-  name: string;
-  address: string
-}
+
 type CartItems = {
   menuId: string;
   name: string;
@@ -16,7 +12,7 @@ type CartItems = {
 export interface IOrder extends Document {
   user: mongoose.Schema.Types.ObjectId;
   restaurant: mongoose.Schema.Types.ObjectId;
-  deliveryDetails: DeliveryDetails;
+  deliveryAddress: string;
   cartItems: CartItems;
   totalAmount: number;
   status: "pending" | "confirmed" |"preparing" |"outfordelivery" |"delivered"
@@ -27,18 +23,16 @@ user: {
   ref: "User",
   required: true
 },
- restaurant: {
+restaurant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Restaurant',
         required: true
     },
-    deliveryDetails:{
-        email:{type:String, required:true},
-        name:{type:String, required:true},
-        address:{type:String, required:true},
-        city:{type:String, required:true},
+deliveryAddress:{
+       type: String,
+       required: true
     },
-    cartItems:[
+cartItems:[
         {
             menuId:{type:String, required:true},
             name:{type:String, required:true},
@@ -47,8 +41,8 @@ user: {
             quantity:{type:Number, required:true},
         }
     ],
-    totalAmount:Number,
-    status:{
+totalAmount: {type: Number, required: true},
+status:{
         type:String,
         enum:["pending" , "confirmed" , "preparing" , "outfordelivery" , "delivered"],
         required:true

@@ -5,6 +5,7 @@ import { connectDb } from "./db/connectDB"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import cors from "cors"
+import orderRouter from "./routes/order.route"
 
 
 const app = express()
@@ -22,6 +23,7 @@ app.use(cors(corsOption))
 
 
 app.use("/user", userRouter)
+app.use("/order", orderRouter)
 
 connectDb()
 const PORT = process.env.PORT || 3000
