@@ -4,7 +4,7 @@ export interface IUser {
   fullName: string;
   email: string;
   password: string;
-  contact: number;
+  contact: string;
   address: string;
   profilePicture: string;
   role: string;
@@ -24,8 +24,8 @@ const userSchema = new Schema<IUser>({
     required: true
   },
   contact: {
-    type: Number,
-
+    type: String,
+    required: true
   },
   address: {
     type: String,
@@ -37,7 +37,7 @@ const userSchema = new Schema<IUser>({
       "Administrative Building",
       "Registrar Building"
     ],
-    required: true
+    
   },
   profilePicture: {
     type: String,

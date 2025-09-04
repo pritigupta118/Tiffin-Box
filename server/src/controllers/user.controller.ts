@@ -2,10 +2,11 @@ import {Request, Response} from "express"
 import { User } from "../models/user.model";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import uploadImageOnCloudinary from "../utils/imageUpload";
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const {fullName, email,password,conatct} = req.body
+    const {fullName, email,password,contact,role} = req.body
 
     let user = await User.findOne({email})
     if (user) {
@@ -20,7 +21,8 @@ export const signup = async (req: Request, res: Response) => {
       fullName,
       email,
       password: hashedPassword,
-      contact: Number(conatct)
+      contact,
+      role
     })
 
     const userwithoutPassword = await User.findOne({email}).select("-password")
@@ -124,17 +126,31 @@ export const logout = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
 try {
     const userId = req.id
-  
-    const {fullName, email, address, contact, profilePicture} = req.body
-  
-    const updatedData = {fullName, email, address, contact, profilePicture}
-  
-    const user = await User.findByIdAndUpdate(userId, updatedData, {new: true}).select("-password")
-  
+    const {fullName, contact, address} = req.body
+    const file = req.file
+
+    const existedUser =  await User.findById(userId)
+
+    if (!existedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!"
+      })
+    }
+
+    if(fullName) existedUser.fullName = fullName
+    if(contact) existedUser.contact = contact
+    if(address) existedUser.address = address
+
+    if (file) {
+      const profilePicture = await uploadImageOnCloudinary(file as Express.Multer.File);
+            existedUser.profilePicture = profilePicture
+    }
+   await existedUser.save()
     return res.status(200).json({
       success: true,
       message: "Profile updated successsfully",
-      user
+      existedUser
     })
 } catch (error) {
   console.log(error);

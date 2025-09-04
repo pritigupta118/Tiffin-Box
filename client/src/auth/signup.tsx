@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { userSignupSchema, type SignupInputState } from "@/schema/userSchema";
+import { useUserStore } from "@/store/useUserStore";
 
 import { Loader2, LockKeyhole, Mail, Phone, User } from "lucide-react";
 import { useState, type ChangeEvent, type FormEvent } from "react";
@@ -8,7 +9,6 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  const loading = false
  
   const [input, setInput] = useState<SignupInputState>({
     fullname: '',
@@ -16,6 +16,8 @@ export default function SignUp() {
     contact: '',
     password: ''
   });
+
+  const {signup, loading} = useUserStore()
 
    const [errors, setErrors] = useState<Partial<SignupInputState>>({});
 
@@ -26,7 +28,7 @@ export default function SignUp() {
    setInput({...input, [name]: value});
   }
 
-    const onSubmitHandler =  (e:FormEvent) => {
+    const onSubmitHandler =  async(e:FormEvent) => {
         e.preventDefault();
         // form validation check start
         const result = userSignupSchema.safeParse(input);
@@ -36,7 +38,7 @@ export default function SignUp() {
           setErrors(fieldErrors as Partial<SignupInputState>);
           return;
         }
-
+     await signup(input)
       }
   
 
