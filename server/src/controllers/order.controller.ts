@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Menu } from "../models/menu.model";
 import { User } from "../models/user.model";
+import { Restaurant } from "../models/restaurant.model";
 
 
 export const createOrder = async (req: Request, res: Response) => {
@@ -174,5 +175,52 @@ export const allMyOrders = async(req: Request, res: Response) => {
     });
   }
 }
+
+export const getRestaurantOrders = async (req: Request, res: Response) => {
+  try {
+    // 1. Verify user role
+    const user = await User.findById(req.id);
+    if (!user || user.role !== "owner") {
+      return res.status(403).json({
+        success: false,
+        message: "Only restaurant owners can view these orders",
+      });
+    }
+
+    // 2. Verify restaurant exists for this user
+    const restaurant = await Restaurant.findOne({ user: req.id });
+    if (!restaurant) {
+      return res.status(404).json({
+        success: false,
+        message: "No restaurant found for this account",
+      });
+    }
+
+    // 3. Fetch orders
+    const orders = await Order.find({ restaurant: restaurant._id })
+      .populate("user", "name email")
+      .sort({ createdAt: -1 });
+
+    if (orders.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No orders found for your restaurant",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      count: orders.length,
+      data: orders,
+    });
+  } catch (error) {
+    console.error("Error fetching restaurant orders:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 
 
