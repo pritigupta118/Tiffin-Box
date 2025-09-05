@@ -1,46 +1,56 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { userSignupSchema, type SignupInputState } from "@/schema/userSchema";
 import { useUserStore } from "@/store/useUserStore";
 
 import { Loader2, LockKeyhole, Mail, Phone, User } from "lucide-react";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
- 
+  const navigate = useNavigate()
   const [input, setInput] = useState<SignupInputState>({
-    fullname: '',
+    fullName: '',
     email: '',
     contact: '',
-    password: ''
+    password: '',
+    role: 'user'
   });
 
-  const {signup, loading} = useUserStore()
+  const { user, signup, loading } = useUserStore()
 
-   const [errors, setErrors] = useState<Partial<SignupInputState>>({});
 
-  
+  const [errors, setErrors] = useState<Partial<SignupInputState>>({});
+
+
 
   const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-   const {name, value} = e.target
-   setInput({...input, [name]: value});
+    const { name, value } = e.target
+    setInput({ ...input, [name]: value });
   }
 
-    const onSubmitHandler =  async(e:FormEvent) => {
-        e.preventDefault();
-        // form validation check start
-        const result = userSignupSchema.safeParse(input);
-       console.log(result);
-        if (!result.success) {
-          const fieldErrors = result.error.formErrors.fieldErrors
-          setErrors(fieldErrors as Partial<SignupInputState>);
-          return;
-        }
-     await signup(input)
-      }
-  
+  const onSubmitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    // form validation check start
+    const result = userSignupSchema.safeParse(input);
+    console.log(result);
+    if (!result.success) {
+      const fieldErrors = result.error.formErrors.fieldErrors
+      setErrors(fieldErrors as Partial<SignupInputState>);
+      return;
+    }
+    await signup(input)
+  }
+
+
+  useEffect(() => {
+    if (user) {
+      navigate("/")
+    }
+  }, [])
 
   return (
     <div className="flex items-center justify-center h-screen w-screen">
@@ -59,12 +69,12 @@ export default function SignUp() {
             <Input
               type="text"
               placeholder="FullName"
-              name="fullname"
+              name="fullName"
               onChange={onchangeHandler}
               className="w-full pl-10 focus-visible:ring-1"
             />
             <User className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
-              { errors && <span className="text-xs text-red-500">{errors.fullname}</span>}
+            {errors && <span className="text-xs text-red-500">{errors.fullName}</span>}
           </div>
           <div className="relative mt-4">
             <Input
@@ -75,7 +85,7 @@ export default function SignUp() {
               className="w-full pl-10 focus-visible:ring-1"
             />
             <Mail className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
-            { errors && <span className="text-xs text-red-500">{errors.email}</span>}
+            {errors && <span className="text-xs text-red-500">{errors.email}</span>}
           </div>
           <div className="relative mt-4">
             <Input
@@ -86,7 +96,7 @@ export default function SignUp() {
               className="w-full pl-10 focus-visible:ring-1"
             />
             <Phone className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
-            { errors && <span className="text-xs text-red-500">{errors.contact}</span>}
+            {errors && <span className="text-xs text-red-500">{errors.contact}</span>}
           </div>
 
           <div className="relative mt-4">
@@ -98,7 +108,33 @@ export default function SignUp() {
               className="w-full pl-10 focus-visible:ring-1"
             />
             <LockKeyhole className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
-            { errors && <span className="text-xs text-red-500">{errors.password}</span>}
+            {errors && <span className="text-xs text-red-500">{errors.password}</span>}
+          </div>
+          <div className="relative mt-4">
+            <RadioGroup className="flex items-center gap-4 my-5">
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={input.role === "user"}
+                  onChange={onchangeHandler}
+                  className="cursor-pointer"
+                />
+                <Label htmlFor="r1">User</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={input.role === "admin"}
+                  onChange={onchangeHandler}
+                  className="cursor-pointer"
+                />
+                <Label htmlFor="r2">Admin</Label>
+              </div>
+            </RadioGroup>
           </div>
         </div>
         <div className="mt-6">

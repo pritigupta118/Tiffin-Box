@@ -6,7 +6,7 @@ import uploadImageOnCloudinary from "../utils/imageUpload";
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const {fullName, email,password,contact,role} = req.body
+    const {fullName, email,contact,password,role} = req.body
 
     let user = await User.findOne({email})
     if (user) {
@@ -20,8 +20,8 @@ export const signup = async (req: Request, res: Response) => {
     user = await User.create({
       fullName,
       email,
-      password: hashedPassword,
       contact,
+      password: hashedPassword,
       role
     })
 
@@ -60,7 +60,7 @@ export const signup = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const {email, password} = req.body
+    const {email, password, role} = req.body
     const existedUser = await User.findOne({email})
     if (!existedUser) {
       return res.status(400).json({
@@ -77,6 +77,13 @@ export const login = async (req: Request, res: Response) => {
         message: "Incorrect password"
       })
     }
+
+        if (role !== existedUser.role) {
+          return res.status(400).json({
+              message: "Account doesn't exist with current role.",
+              success: false
+          })
+      };
 
     const jwtToken = jwt.sign(
       {
@@ -96,6 +103,7 @@ export const login = async (req: Request, res: Response) => {
       sameSite: "none",
       secure: true
     })
+
 
     return res.status(200).json({
       success: true,
@@ -158,3 +166,4 @@ try {
   
 }
 }
+

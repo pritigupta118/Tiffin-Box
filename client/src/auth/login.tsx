@@ -1,15 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { userLoginSchema, type LoginInputState } from "@/schema/userSchema";
+import { useUserStore } from "@/store/useUserStore";
 import { Loader2, LockKeyhole, Mail } from "lucide-react";
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const loading = false
+  const navigate = useNavigate()
+  const {user,login, loading} = useUserStore()
   const [input, setInput] = useState<LoginInputState>({
     email: '',
-    password: ''
+    password: '',
+    role: 'user'
   });
   const [errors, setErrors] = useState<Partial<LoginInputState>>({})
   
@@ -18,7 +23,7 @@ export default function Login() {
      setInput({...input, [name]: value});
     }
   
-    const onsubmitHandler = (e:FormEvent) => {
+    const onsubmitHandler = async(e:FormEvent) => {
       e.preventDefault()
 
       // form validation check start
@@ -28,8 +33,16 @@ export default function Login() {
         setErrors(fieldErrors as Partial<LoginInputState>)
       }
      console.log("Form submitted with data:", input);
+
+     await login(input)
      
     }
+   
+    useEffect(()=>{
+    if (user) {
+      navigate("/")
+    }
+    },[])
   
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -67,6 +80,33 @@ export default function Login() {
               <LockKeyhole className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none" />
               { errors && <span className="text-xs text-red-500">{errors.password}</span>}
             </div>
+
+            <div className="relative mt-4">
+              <RadioGroup className="flex items-center gap-4 my-5">
+                <div className="flex items-center space-x-2">
+                    <Input
+                        type="radio"
+                        name="role"
+                        value="user"
+                        checked={input.role === "user"}
+                       onChange={onchangeHandler}
+                        className="cursor-pointer"
+                    />
+                    <Label htmlFor="r1">User</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Input
+                        type="radio"
+                        name="role"
+                        value="admin"
+                        checked={input.role === "admin"}
+                        onChange={onchangeHandler}
+                        className="cursor-pointer"
+                    />
+                    <Label htmlFor="r2">Admin</Label>
+                </div>
+            </RadioGroup>
+          </div>
           </div>
           <div className="mt-6">
             {

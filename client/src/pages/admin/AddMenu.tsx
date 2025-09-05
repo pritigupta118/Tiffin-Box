@@ -66,7 +66,7 @@ function AddMenu({}: Props) {
           Available Menus
         </h1>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button className="bg-orange-500 hover:bg-orange-400 hidden md:flex">
               <Plus className="mr-2" />
              Add Menus
