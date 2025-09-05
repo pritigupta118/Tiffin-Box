@@ -43,6 +43,7 @@ export default function SignUp() {
       return;
     }
     await signup(input)
+    navigate("/")
   }
 
 

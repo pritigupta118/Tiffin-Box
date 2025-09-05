@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware"
 import axios from "axios"
 import type { LoginInputState, SignupInputState } from "@/schema/userSchema";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+
 
 const API_END_POINT = "http://localhost:8000/user"
 axios.defaults.withCredentials = true
@@ -30,7 +30,6 @@ export const useUserStore = create<UserState>()(persist((set) => ({
   loading: false,
 
   signup: async (input: SignupInputState) => {
-    const navigate = useNavigate()
     try {
       set({ loading: true });
       const response = await axios.post(`${API_END_POINT}/signup`, input, {
@@ -39,7 +38,6 @@ export const useUserStore = create<UserState>()(persist((set) => ({
         }
       })
       if (response.data.success) {
-        navigate("/")
         console.log(response.data);
         toast.success(response.data.message)
         set({ loading: false, user: response.data.user })
@@ -58,7 +56,7 @@ export const useUserStore = create<UserState>()(persist((set) => ({
   },
 
   login: async (input: LoginInputState) => {
-    const navigate = useNavigate()
+    
     try {
       set({ loading: true })
       const response = await axios.post(`${API_END_POINT}/login`, input, {
@@ -68,7 +66,7 @@ export const useUserStore = create<UserState>()(persist((set) => ({
       })
 
       if (response.data.success) {
-        navigate("/")
+        
         console.log("Successfully login! data: ", response.data);
         toast.success(response.data.message)
         set({ loading: false, user: response.data.userWithoutPassword })
@@ -85,12 +83,13 @@ export const useUserStore = create<UserState>()(persist((set) => ({
   },
 
   logout: async () => {
-    const navigate = useNavigate()
+    
     try {
       set({ loading: true })
       const response = await axios.post(`${API_END_POINT}/logout`)
       if (response.data.success) {
-        navigate("/")
+        console.log("logout successsfull")
+       
         toast.success(response.data.message)
         set({ loading: false, user: null })
       }

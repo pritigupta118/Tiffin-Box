@@ -35,7 +35,7 @@ export default function Login() {
      console.log("Form submitted with data:", input);
 
      await login(input)
-     
+     navigate("/")
     }
    
     useEffect(()=>{
